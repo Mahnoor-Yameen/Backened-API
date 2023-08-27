@@ -141,5 +141,27 @@ const DeleteCategory=async(req,res)=>{
     }
 }
 
-module.exports={CreateCategory, CategoryByName, CategoryByID, UpdateCategory, DeleteCategory}
+const AllCategories=async (req, res) => {
+
+    try {
+        await connect(process.env.MONGO_URL)  //connect hoga db idher
+
+        const AllCategory=await CategoryFromModel.find()
+                res.json({
+                    
+                    Categories:AllCategory
+
+                })
+    
+        
+    } catch (error) {
+        req.status(400).json({
+            message:"Error:",
+            messagedusra:error.message
+        })
+        
+    }
+  }
+
+module.exports={CreateCategory,AllCategories, CategoryByName, CategoryByID, UpdateCategory, DeleteCategory}
 
